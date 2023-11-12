@@ -1,47 +1,69 @@
 import React, { useState } from "react";
+import { User, Message } from "../App";
 
-type ChatMessage = {
-  text: string;
-  date: Date;
-};
+interface ChatWindowProps {
+  user: User | null;
+  handleUpdateMessages: ({
+    userId,
+    updatedMessages,
+  }: {
+    userId: number;
+    updatedMessages: Message[];
+  }) => void;
+}
 
-const ChatMessage = ({ text, date }: ChatMessage) => {
+const ChatMessage = ({ text, date }: Message) => {
   return (
-    <div>
+    <div className="message right">
       <p>{text}</p>
-      <p>{date.toString()}</p>
     </div>
   );
 };
 
-export const ChatWindow = () => {
-  const [messages, setMessages] = useState<ChatMessage[]>([]);
+const ChatWindow: React.FC<ChatWindowProps> = ({
+  user,
+  handleUpdateMessages,
+}) => {
+  // const [messages, setMessages] = useState<ChatMessage[]>([]);
   const [messageInput, setMessageInput] = useState<string>("");
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    const newMessage: ChatMessage = { text: messageInput, date: new Date() };
-    setMessages([newMessage, ...messages]);
-    setMessageInput("");
-  };
-
   return (
-    <>
+    <div className="container">
       <div>ChatWindow</div>
-      {messages?.length > 0 &&
-        messages.map((msg, index) => (
-          <ChatMessage key={index} text={msg.text} date={msg.date} />
-        ))}
-      <form onSubmit={handleSubmit}>
+      <div className="messages-container w-full">
+        {user.messages?.length > 0 &&
+          user.messages.map((msg, index) => (
+            <ChatMessage key={index} text={msg.text} date={msg.date} />
+          ))}
+      </div>
+      <form
+        className="flex w-full gap-2"
+        onSubmit={(evt) => {
+          evt.preventDefault();
+          const newMessage: Message = {
+            text: messageInput,
+            date: new Date(),
+            toUserId: user.id,
+            fromUserId: 1,
+            read: false,
+          };
+          const updatedMessages = [...user.messages, newMessage];
+          handleUpdateMessages({ userId: user.id, updatedMessages });
+          setMessageInput("");
+        }}
+      >
         <input
           type="text"
+          placeholder={`Message ${user?.name ?? "User"}`}
           value={messageInput}
           onChange={(evt) => setMessageInput(evt.target.value)}
+          className="w-full"
         />
-        <button className="w-10 h-10" type="submit">
+        <button className="w-20 rounded-full" type="submit">
           Send
         </button>
       </form>
-    </>
+    </div>
   );
 };
+export default ChatWindow;
