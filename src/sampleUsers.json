@@ -1,0 +1,23 @@
+[   
+        {
+            "id": 3,
+            "name": "Albert Einstein",
+            "userPhotoUrl":
+                "https://upload.wikimedia.org/wikipedia/commons/thumb/3/3e/Einstein_1921_by_F_Schmutzer_-_restoration.jpg/250px-Einstein_1921_by_F_Schmutzer_-_restoration.jpg",
+            "messages": []
+        },
+        {
+            "id": 2,
+            "name": "Marcus Aurelius",
+            "userPhotoUrl":
+                "https://upload.wikimedia.org/wikipedia/commons/thumb/e/ec/MSR-ra-61-b-1-DM.jpg/250px-MSR-ra-61-b-1-DM.jpg",
+            "messages": []
+        },
+        {
+            "id": 4,
+            "name": "Marilyn Monroe",
+            "userPhotoUrl":
+                "https://upload.wikimedia.org/wikipedia/commons/thumb/4/4e/Monroecirca1953.jpg/250px-Monroecirca1953.jpg",
+            "messages": []
+        }
+    ]
