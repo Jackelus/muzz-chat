@@ -1,12 +1,21 @@
+import { format, isToday, isYesterday, differenceInHours } from "date-fns";
+
 export function genRandomMs() {
-  // Returns a random number between 0 and 10 seconds, in milliseconds
-  return Math.floor(Math.random() * 1e4);
+  // Returns a random number between 0 and 40 seconds, in milliseconds
+  return Math.floor(Math.random() * 40000);
 }
 
-function prettifyDate(timestamp) {
-  // Returns the date in hh:mm am/pm format
-  const options = { hour: "2-digit", minute: "2-digit" };
-  return new Date(timestamp).toLocaleTimeString("en-US", options);
+export function dateCalculator(msgDate: Date, lastMsgDate: Date) {
+  const diffInHours = differenceInHours(msgDate, lastMsgDate);
+  if (diffInHours < 1) {
+    return false;
+  } else if (isToday(msgDate)) {
+    return format(msgDate, "'Today' h:mm a");
+  } else if (isYesterday(msgDate)) {
+    return format(msgDate, "'Yesterday' h:mm a");
+  } else {
+    return format(msgDate, "EEE d MMM h:mm a");
+  }
 }
 
 export function simulateIncomingMessages(authorName: string) {

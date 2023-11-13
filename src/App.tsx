@@ -70,20 +70,21 @@ function App() {
       payload: { userId, messages: updatedMessages },
     });
   }
+
   const selectedUser =
-    state.users.find((user: User) => user.id === state.selectedUser) ?? {};
+    state.users.find((user: User) => user.id === state.selectedUser) ?? null;
 
   return (
-    <>
+    <div>
       <Header />
-      <div className="flex w-full">
+      <div className="flex gap-2 rounded w-full">
         <ChatsList users={state.users} handleSelectUser={handleSelectUser} />
         <ChatWindow
           user={selectedUser}
           handleUpdateMessages={handleUpdateMessages}
         />
       </div>
-    </>
+    </div>
   );
 }
 export default App;
