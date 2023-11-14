@@ -1,38 +1,24 @@
-import { useReducer } from "react";
+import { useReducer, Reducer } from "react";
 import "./App.css";
 import Header from "./components/Header";
 import ChatWindow from "./components/ChatWindow";
 import ChatsList from "./components/ChatsList";
-import { Message, User, State } from "./types";
+import { Message, User, State, Action } from "./types";
 import sampleUsers from "./sampleUsers.json";
 
-function reducer(
-  state: State,
-  {
-    type,
-    payload,
-  }: {
-    type: string;
-    payload: {
-      id?: number;
-      updatedUser?: User;
-      userId: number;
-      messages: Message[];
-    };
-  }
-) {
-  switch (type) {
+const reducer: Reducer<State, Action> = (state, action) => {
+  switch (action.type) {
     case "selectUser":
       return {
         ...state,
-        selectedUser: payload.id,
+        selectedUser: action.payload.userId,
       };
     case "updateMessages": {
       const updatedUsers = state.users.map((user) => {
-        if (user.id === payload.userId) {
+        if (user.id === action.payload.userId) {
           return {
             ...user,
-            messages: payload.messages,
+            messages: action.payload.messages ?? [],
           };
         }
         return user;
@@ -46,16 +32,16 @@ function reducer(
     default:
       throw new Error();
   }
-}
+};
 
 function App() {
   const [state, dispatch] = useReducer(reducer, {
-    selectedUser: "",
+    selectedUser: 0,
     users: sampleUsers,
   });
 
   function handleSelectUser(userId: number) {
-    dispatch({ type: "selectUser", payload: { id: userId } });
+    dispatch({ type: "selectUser", payload: { userId } });
   }
 
   function handleUpdateMessages({
@@ -87,4 +73,5 @@ function App() {
     </div>
   );
 }
+
 export default App;

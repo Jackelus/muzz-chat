@@ -69,12 +69,12 @@ const ChatWindow: React.FC<ChatWindowProps> = ({
       read: false,
     };
     const updatedMessages = [...(messages ?? []), newMessage];
-    // randomly delay receiving message from 1-5 seconds
+    // randomly delay receiving message from 1-40 seconds
     // check if latest submission is still the same as the current one
     setTimeout(() => {
       if (
-        latestSubmission.current.userId === userId &&
-        latestSubmission.current.updatedMessages === messages
+        latestSubmission?.current?.userId === userId &&
+        latestSubmission?.current.updatedMessages === messages
       ) {
         handleUpdateMessages({ userId, updatedMessages });
       }
@@ -113,8 +113,6 @@ const ChatWindow: React.FC<ChatWindowProps> = ({
           user.messages?.length > 0 &&
           user.messages.map(({ text, date, toUserId, fromUserId }, index) => {
             const prevMsg = user.messages[index - 1] ?? {};
-            console.log({ prevMsg, date });
-
             let closeGrouping;
             let formattedDate;
             if (
@@ -140,43 +138,45 @@ const ChatWindow: React.FC<ChatWindowProps> = ({
           })
         )}
       </div>
-      <form
-        className="flex w-full gap-2"
-        onSubmit={async (evt) => {
-          evt.preventDefault();
-          const newMessage: Message = {
-            text: messageInput,
-            date: new Date(),
-            toUserId: user.id,
-            fromUserId: 1,
-            read: false,
-          };
-          const updatedMessages = [...user.messages, newMessage];
-          handleUpdateMessages({ userId: user.id, updatedMessages });
-          latestSubmission.current = { userId: user.id, updatedMessages };
-          setMessageInput("");
-          handleIncMessage({
-            userId: user.id,
-            name: user.name,
-            messages: updatedMessages,
-          });
-        }}
-      >
-        <input
-          type="text"
-          placeholder={`Message ${user?.name ?? "User"}...`}
-          value={messageInput}
-          onChange={(evt) => setMessageInput(evt.target.value)}
-          className="w-full bg-gray-200 rounded-full p-4 pl-6 ml-2 mb-2"
-        />
-        <button
-          className="w-20 rounded-full bg-[#E8506E] mb-2 mr-2 text-white font-bold"
-          type="submit"
-          disabled={!messageInput}
+      {user && (
+        <form
+          className="flex w-full gap-2"
+          onSubmit={async (evt) => {
+            evt.preventDefault();
+            const newMessage: Message = {
+              text: messageInput,
+              date: new Date(),
+              toUserId: user.id,
+              fromUserId: 1,
+              read: false,
+            };
+            const updatedMessages = [...user.messages, newMessage];
+            handleUpdateMessages({ userId: user.id, updatedMessages });
+            latestSubmission.current = { userId: user.id, updatedMessages };
+            setMessageInput("");
+            handleIncMessage({
+              userId: user.id,
+              name: user.name,
+              messages: updatedMessages,
+            });
+          }}
         >
-          Send
-        </button>
-      </form>
+          <input
+            type="text"
+            placeholder={`Message ${user?.name ?? "User"}...`}
+            value={messageInput}
+            onChange={(evt) => setMessageInput(evt.target.value)}
+            className="w-full bg-gray-200 rounded-full p-4 pl-6 ml-2 mb-2"
+          />
+          <button
+            className="w-20 rounded-full bg-[#E8506E] mb-2 mr-2 text-white font-bold"
+            type="submit"
+            disabled={!messageInput}
+          >
+            Send
+          </button>
+        </form>
+      )}
     </div>
   );
 };

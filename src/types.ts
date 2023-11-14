@@ -10,10 +10,20 @@ export type User = {
   name: string;
   id: number;
   userPhotoUrl: string;
-  messages: Message[];
+  messages: Message[] | [];
 };
 
 export type State = {
-  selectedUser: string;
+  selectedUser?: number;
   users: User[];
+};
+
+export type Action = {
+  type: string;
+  payload: {
+    selectedUser?: number;
+    users?: User[];
+    userId?: number;
+    messages?: Message[] | [];
+  };
 };
