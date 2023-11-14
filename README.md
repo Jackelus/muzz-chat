@@ -8,8 +8,8 @@ This project is a minimal setup for a React application using Vite and TypeScrip
 
 To launch the application, follow these steps:
 
-1. Clone the repository: `git clone <repository-url>`
-2. Navigate into the project directory: `cd <project-name>`
+1. Clone the repository: `git clone https://github.com/Jackelus/muzz-chat.git`
+2. Navigate into the project directory: `cd muzz-chat`
 3. Install dependencies: `yarn install`
 4. Start the development server: `yarn dev`
 
