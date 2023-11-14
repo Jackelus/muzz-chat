@@ -1,8 +1,8 @@
 import { format, isToday, isYesterday, differenceInHours } from "date-fns";
 
 export function genRandomMs() {
-  // Returns a random number between 0 and 40 seconds, in milliseconds
-  return Math.floor(Math.random() * 40000);
+  // Returns a random number between 0 and 35 seconds, in milliseconds
+  return Math.floor(Math.random() * 35000);
 }
 
 export function dateCalculator(msgDate: Date, lastMsgDate: Date) {

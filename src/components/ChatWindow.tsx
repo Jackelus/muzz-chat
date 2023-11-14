@@ -69,7 +69,7 @@ const ChatWindow: React.FC<ChatWindowProps> = ({
       read: false,
     };
     const updatedMessages = [...(messages ?? []), newMessage];
-    // randomly delay receiving message from 1-40 seconds
+    // randomly delay receiving message from 1-35 seconds
     // check if latest submission is still the same as the current one
     setTimeout(() => {
       if (

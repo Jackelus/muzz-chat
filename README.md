@@ -1,27 +1,26 @@
-# React + TypeScript + Vite
+# Muzz Chat for Web
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Tech test for Muzz, tasdked with creating an implementation of Muzz Chat for Web using React and TypeScript.
 
-Currently, two official plugins are available:
+This project is a minimal setup for a React application using Vite and TypeScript. It features Hot Module Replacement (HMR) and a basic set of ESLint rules to ensure code quality.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Getting Started
 
-## Expanding the ESLint configuration
+To launch the application, follow these steps:
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+1. Clone the repository: `git clone <repository-url>`
+2. Navigate into the project directory: `cd <project-name>`
+3. Install dependencies: `yarn install`
+4. Start the development server: `yarn dev`
 
-- Configure the top-level `parserOptions` property like this:
+The application will be available at `http://localhost:5173/`.
 
-```js
-   parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: ['./tsconfig.json', './tsconfig.node.json'],
-    tsconfigRootDir: __dirname,
-   },
-```
+## Roadmap
 
-- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
-- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
+Things I would like to add to this project if I had longer to complete:
+
+- Implement read receipts and ticks for messages
+- Debounce text input
+- Check messages sorted by date, currently relying on the order of the array
+- Persist messages to local storage and/or setup server and database
+- Make responsive for mobile
